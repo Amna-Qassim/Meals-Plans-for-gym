@@ -5,17 +5,22 @@ export const UserDetailes = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  const { userId, userName, systemName, days } = data;
-  const [courses, setCourses] = useState(data);
+  // const data = Alldata["record"];
+  // const userId = Alldata["userId"];
+  // console.log("data", userId);
+  const { userId, userName, systemName } = data;
+  const [courses, setCourses] = useState([data]);
   const [selectedDay, setSelectedDay] = useState("ALL");
-  console.log(courses);
+  console.log("c", courses);
 
   useEffect(() => {
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
     if (MealPlans) {
-      setCourses(MealPlans);
+      const course = MealPlans.filter((user) => {
+        return user.userId === userId;
+      });
+      setCourses(course);
     }
-    console.log(courses);
   }, []);
 
   const saveChanges = () => {
@@ -24,7 +29,7 @@ export const UserDetailes = () => {
   };
 
   const updateMeal = (dayId, mealId, type, data) => {
-    const newCourses = courses.days.map((day) => {
+    const newCourses = courses[0].days.map((day) => {
       // if the meal not the required to update meal
       if (day.id !== dayId) {
         return day;
@@ -77,6 +82,7 @@ export const UserDetailes = () => {
           <option value={"TUESDAY"}>TUESDAY</option>
           <option value={"WEDNESDAY"}>WEDNESDAY</option>
           <option value={"THURSDAY"}>THURSDAY</option>
+          <option value={"SATURDAY"}>SATURDAY</option>
         </select>
         <button className="btn btn-light" onClick={() => navigate("/")}>
           Go back
@@ -84,43 +90,43 @@ export const UserDetailes = () => {
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">
-        {courses !== undefined &&
-          courses.days.map((day) => {
-            if (day.day === selectedDay || selectedDay === "ALL") {
-              return (
-                <div className="mb-4">
-                  <h4 className="border-bottom border-1 border-success mx-3">
-                    {day.day}
-                  </h4>
-                  {day.meals.map((meal, index) => {
-                    return (
-                      <div className="mx-4">
-                        <p className="mt-3 text-success fw-bold">
-                          {"Meal :" + (index + 1)}
-                        </p>
-                        <input
-                          value={meal.time}
-                          placeholder={"time"}
-                          onChange={(e) => {
-                            updateMeal(day.id, meal.id, "time", e.target.value);
-                          }}
-                          className="mb-2"
-                        />
-                        {"  "}
-                        <input
-                          value={meal.meal}
-                          placeholder={"meal"}
-                          onChange={(e) => {
-                            updateMeal(day.id, meal.id, "meal", e.target.value);
-                          }}
-                        />
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            }
-          })}
+        {courses[0].days.map((day) => {
+          console.log("day", day);
+          if (day.day === selectedDay || selectedDay === "ALL") {
+            return (
+              <div className="mb-4">
+                <h4 className="border-bottom border-1 border-success mx-3">
+                  {day.day}
+                </h4>
+                {day.meals.map((meal, index) => {
+                  return (
+                    <div className="mx-4">
+                      <p className="mt-3 text-success fw-bold">
+                        {"Meal :" + (index + 1)}
+                      </p>
+                      <input
+                        value={meal.time}
+                        placeholder={"time"}
+                        onChange={(e) => {
+                          updateMeal(day.id, meal.id, "time", e.target.value);
+                        }}
+                        className="mb-2"
+                      />
+                      {"  "}
+                      <input
+                        value={meal.meal}
+                        placeholder={"meal"}
+                        onChange={(e) => {
+                          updateMeal(day.id, meal.id, "meal", e.target.value);
+                        }}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          }
+        })}
       </div>
       <button onClick={() => saveChanges()}>save</button>
     </>

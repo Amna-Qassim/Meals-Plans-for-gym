@@ -11,7 +11,7 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(Users));
-    console.log(localStorage.setItem("mealPlans", JSON.stringify(MealPlans)));
+    localStorage.setItem("mealPlans", JSON.stringify(MealPlans));
   }, []);
 
   const columns = [
@@ -37,8 +37,13 @@ const Home = () => {
               to={{
                 pathname: "/userDetails",
               }}
+              // state={{
+              //   record: record,
+              //   userId: record.userId,
+              // }}
               state={record}
             >
+              {console.log(record.userId)}
               <button type="button" className="btn btn-dark">
                 Details
               </button>
