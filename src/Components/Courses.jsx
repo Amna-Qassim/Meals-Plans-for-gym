@@ -1,17 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Users, MealPlans } from "../Constant";
 import { useNavigate, Link } from "react-router-dom";
 import { Select, Table } from "antd";
 
 const Home = () => {
+  const [users, setUsers] = useState(Users);
+  const [mealPlans, setMealPlans] = useState(MealPlans);
   const page_size = 5;
   const navigate = useNavigate();
   const { Option } = Select;
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(Users));
-    localStorage.setItem("mealPlans", JSON.stringify(MealPlans));
+    localStorage.setItem("users", JSON.stringify(users));
+    localStorage.setItem("mealPlans", JSON.stringify(mealPlans));
   }, []);
+
+  useEffect(() => {
+    const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
+    const Users = JSON.parse(localStorage.getItem("users"));
+    setMealPlans(MealPlans);
+    setUsers(Users);
+  }, []);
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };

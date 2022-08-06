@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { MealPlans } from "../Constant";
 
 export const UserDetailes = () => {
   const location = useLocation();
@@ -8,28 +7,29 @@ export const UserDetailes = () => {
   const data = location.state;
   const { userId, userName, systemName } = data;
 
-  const [courses, setCourses] = useState(undefined);
+  const [course, setCourse] = useState(undefined);
+
   const [selectedDay, setSelectedDay] = useState("ALL");
-  console.log("c", courses);
 
   useEffect(() => {
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
     console.log("m", MealPlans);
     if (MealPlans) {
-      const course = MealPlans.filter((user) => {
+      const course = MealPlans.find((user) => {
         return user.userId === userId;
       });
-      setCourses(course);
+
+      console.log("course", course);
+      setCourse(course);
     }
   }, []);
 
   const saveChanges = () => {
-    localStorage.setItem("mealPlans", JSON.stringify(courses));
-    window.location.href = "/userDetails";
+    window.localStorage.setItem("mealPlans", JSON.stringify(course));
   };
 
   const updateMeal = (dayId, mealId, type, data, course) => {
-    const newCourses = courses[0].days.map((day) => {
+    const newCourses = course.days.map((day) => {
       // if the meal not the required to update meal
       if (day.id !== dayId) {
         return day;
@@ -56,7 +56,7 @@ export const UserDetailes = () => {
     });
     console.log("newCourses", newCourses);
     const newCourse = { ...course, days: newCourses };
-    setCourses(newCourse);
+    setCourse(newCourse);
   };
 
   return (
@@ -87,8 +87,8 @@ export const UserDetailes = () => {
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">
-        {courses &&
-          courses[0].days.map((day) => {
+        {course &&
+          course.days.map((day) => {
             if (day.day === selectedDay || selectedDay === "ALL") {
               return (
                 <div className="mb-4">
@@ -110,7 +110,7 @@ export const UserDetailes = () => {
                               meal.id,
                               "time",
                               e.target.value,
-                              courses[0]
+                              course
                             );
                           }}
                           className="mb-2"
@@ -125,7 +125,7 @@ export const UserDetailes = () => {
                               meal.id,
                               "meal",
                               e.target.value,
-                              courses[0]
+                              course
                             );
                           }}
                         />
@@ -148,17 +148,3 @@ export const UserDetailes = () => {
     </>
   );
 };
-
-{
-  /* <ul>
-{Object.keys(day).map((d, i) => {
-  console.log(day[d]);
-  return (
-    <li>
-      {d}
-      {`=> ${day[d][i].time}, ${day[d][i].meal}`}
-    </li>
-  );
-})}
-</ul> */
-}
