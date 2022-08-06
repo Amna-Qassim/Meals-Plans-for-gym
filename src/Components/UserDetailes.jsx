@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { MealPlans } from "../Constant";
 
 export const UserDetailes = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  // const data = Alldata["record"];
-  // const userId = Alldata["userId"];
-  // console.log("data", userId);
   const { userId, userName, systemName } = data;
-  const [courses, setCourses] = useState([data]);
+
+  const [courses, setCourses] = useState(undefined);
   const [selectedDay, setSelectedDay] = useState("ALL");
   console.log("c", courses);
 
   useEffect(() => {
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
+    console.log("m", MealPlans);
     if (MealPlans) {
       const course = MealPlans.filter((user) => {
         return user.userId === userId;
@@ -28,13 +28,12 @@ export const UserDetailes = () => {
     window.location.href = "/userDetails";
   };
 
-  const updateMeal = (dayId, mealId, type, data) => {
+  const updateMeal = (dayId, mealId, type, data, course) => {
     const newCourses = courses[0].days.map((day) => {
       // if the meal not the required to update meal
       if (day.id !== dayId) {
         return day;
       }
-      // windows.location.href="/home"
 
       const newMeals = day.meals.map((meal) => {
         if (meal.id !== mealId) {
@@ -42,7 +41,6 @@ export const UserDetailes = () => {
         }
 
         // update the meal
-
         if (type === "meal") {
           return { ...meal, meal: data };
         }
@@ -56,10 +54,9 @@ export const UserDetailes = () => {
 
       return { ...day, meals: newMeals };
     });
-
-    console.log({ newCourses });
-
-    setCourses(newCourses);
+    console.log("newCourses", newCourses);
+    const newCourse = { ...course, days: newCourses };
+    setCourses(newCourse);
   };
 
   return (
@@ -90,45 +87,64 @@ export const UserDetailes = () => {
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">
-        {courses[0].days.map((day) => {
-          console.log("day", day);
-          if (day.day === selectedDay || selectedDay === "ALL") {
-            return (
-              <div className="mb-4">
-                <h4 className="border-bottom border-1 border-success mx-3">
-                  {day.day}
-                </h4>
-                {day.meals.map((meal, index) => {
-                  return (
-                    <div className="mx-4">
-                      <p className="mt-3 text-success fw-bold">
-                        {"Meal :" + (index + 1)}
-                      </p>
-                      <input
-                        value={meal.time}
-                        placeholder={"time"}
-                        onChange={(e) => {
-                          updateMeal(day.id, meal.id, "time", e.target.value);
-                        }}
-                        className="mb-2"
-                      />
-                      {"  "}
-                      <input
-                        value={meal.meal}
-                        placeholder={"meal"}
-                        onChange={(e) => {
-                          updateMeal(day.id, meal.id, "meal", e.target.value);
-                        }}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          }
-        })}
+        {courses &&
+          courses[0].days.map((day) => {
+            if (day.day === selectedDay || selectedDay === "ALL") {
+              return (
+                <div className="mb-4">
+                  <h4 className="border-bottom border-1 border-success mx-3">
+                    {day.day}
+                  </h4>
+                  {day.meals.map((meal, index) => {
+                    return (
+                      <div className="mx-4">
+                        <p className="mt-3 text-success fw-bold">
+                          {"Meal :" + (index + 1)}
+                        </p>
+                        <input
+                          value={meal.time}
+                          placeholder={"time"}
+                          onChange={(e) => {
+                            updateMeal(
+                              day.id,
+                              meal.id,
+                              "time",
+                              e.target.value,
+                              courses[0]
+                            );
+                          }}
+                          className="mb-2"
+                        />
+                        {"  "}
+                        <input
+                          value={meal.meal}
+                          placeholder={"meal"}
+                          onChange={(e) => {
+                            updateMeal(
+                              day.id,
+                              meal.id,
+                              "meal",
+                              e.target.value,
+                              courses[0]
+                            );
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            }
+          })}
       </div>
-      <button onClick={() => saveChanges()}>save</button>
+      <div className="d-flex justify-content-center ">
+        <button
+          onClick={() => saveChanges()}
+          className="btn btn-dark mb-5 mt-3"
+        >
+          save
+        </button>
+      </div>
     </>
   );
 };
