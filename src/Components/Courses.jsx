@@ -13,7 +13,6 @@ const Home = () => {
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
     if (!MealPlans) {
       localStorage.setItem("mealPlans", JSON.stringify(mealPlans));
-      setMealPlans(MealPlans);
     } else {
       setMealPlans(MealPlans);
     }
