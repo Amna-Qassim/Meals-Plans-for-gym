@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const UserDetailes = () => {
+export const AddNewCourse = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  const { userId, userName, systemName } = data;
+  const { userId } = data;
 
   const [course, setCourse] = useState(undefined);
   const [courses, setCourses] = useState([]);
@@ -81,11 +81,11 @@ export const UserDetailes = () => {
   return (
     <>
       <div className="mt-3 mb-5 mx-3 d-flex justify-content-between align-items-center">
-        <h2 style={{ color: "#636363" }}>
+        {/* <h2 style={{ color: "#636363" }}>
           The course of <span style={{ color: "#009688" }}>{systemName}</span>{" "}
           for <br />
           <span style={{ color: "#009688" }}>{userName}</span> for this month:
-        </h2>
+        </h2> */}
         <select
           onChange={(e) => {
             setSelectedDay(e.target.value);

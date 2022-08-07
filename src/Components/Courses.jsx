@@ -1,29 +1,34 @@
 import { useEffect, useState } from "react";
-import { Users, MealPlans } from "../Constant";
+import { MealPlans } from "../Constant";
 import { useNavigate, Link } from "react-router-dom";
 import { Select, Table } from "antd";
 
 const Home = () => {
-  const [users, setUsers] = useState(Users);
   const [mealPlans, setMealPlans] = useState(MealPlans);
   const page_size = 5;
   const navigate = useNavigate();
   const { Option } = Select;
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
-    localStorage.setItem("mealPlans", JSON.stringify(mealPlans));
+    const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
+    if (!MealPlans) {
+      localStorage.setItem("mealPlans", JSON.stringify(mealPlans));
+      setMealPlans(MealPlans);
+    } else {
+      setMealPlans(MealPlans);
+    }
   }, []);
 
-  useEffect(() => {
-    const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
-    const Users = JSON.parse(localStorage.getItem("users"));
-    setMealPlans(MealPlans);
-    setUsers(Users);
-  }, []);
+  const filterUsers = () => {
+    const users = MealPlans.filter((obj) => {
+      return obj.systemName !== "";
+    });
+    return users;
+  };
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
+    navigate("/addNewCourse", { state: { userId: value } });
   };
 
   const columns = [
@@ -93,7 +98,7 @@ const Home = () => {
         <Table
           className="my-5 fw-bold"
           columns={columns}
-          dataSource={MealPlans}
+          dataSource={filterUsers()}
           pagination={{
             pageSize: page_size,
             position: ["bottomCenter"],

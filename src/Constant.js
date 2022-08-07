@@ -18,7 +18,7 @@ export const Users = [
 
 export const MealPlans = [
   {
-    id: "#keto",
+    id: "#1",
     systemName: "Keto-System",
     userId: 1,
     userName: "Ahmed",
@@ -243,7 +243,7 @@ export const MealPlans = [
     ],
   },
   {
-    id: "#healthSystem",
+    id: "#2",
     systemName: "Health-System",
     userId: 2,
     userName: "Amna",
@@ -462,6 +462,231 @@ export const MealPlans = [
             id: "5",
             time: "10:00pm",
             meal: "meal_5_H",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: "#3",
+    systemName: "",
+    userId: 3,
+    userName: "Mohammed",
+    days: [
+      {
+        id: 1,
+        day: "SUNDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "2",
+        day: "MONDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "3",
+        day: "TUESDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "4",
+        day: "WEDNESDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "5",
+        day: "THURSDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "6",
+        day: "FRIDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
+          },
+        ],
+      },
+      {
+        id: "7",
+        day: "SATURDAY",
+        meals: [
+          {
+            id: "1",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "2",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "3",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "4",
+            time: "",
+            meal: "",
+          },
+          {
+            id: "5",
+            time: "",
+            meal: "",
           },
         ],
       },

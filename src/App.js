@@ -2,8 +2,7 @@ import "./App.css";
 import Home from "./Components/Courses";
 import { Routes, Route } from "react-router-dom";
 import { UserDetailes } from "./Components/UserDetailes";
-// import { AddCourse } from "./Components/AddCourse";
-import MainPage from "./Components/MainPage";
+import { AddNewCourse } from "./Components/AddNewCourse";
 
 function App() {
   return (
@@ -11,8 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/userDetails" element={<UserDetailes />} />
-        {/* <Route path="/addCourse" element={<AddCourse />} /> */}
-        {/* <Route path="/userCourse" element={<MainPage />} /> */}
+        <Route path="/addNewCourse" element={<AddNewCourse />} />
       </Routes>
     </div>
   );
