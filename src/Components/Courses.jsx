@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { MealPlans } from "../Constant";
 import { Select, Table } from "antd";
 
-const Home = () => {
+export const Courses = () => {
   const [mealPlans, setMealPlans] = useState([]);
   const page_size = 5;
   const navigate = useNavigate();
@@ -11,7 +11,6 @@ const Home = () => {
 
   useEffect(() => {
     const mealPlans = JSON.parse(localStorage.getItem("mealPlans"));
-
     if (!mealPlans) {
       localStorage.setItem("mealPlans", JSON.stringify(MealPlans));
     } else {
@@ -29,7 +28,6 @@ const Home = () => {
   };
 
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
     navigate("/userDetails", { state: { userId: value } });
   };
 
@@ -58,7 +56,6 @@ const Home = () => {
               }}
               state={record}
             >
-              {console.log("rid", record.userId)}
               <button type="button" className="btn btn-dark">
                 Details
               </button>
@@ -110,5 +107,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

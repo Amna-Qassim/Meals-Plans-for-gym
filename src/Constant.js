@@ -1,21 +1,3 @@
-export const Users = [
-  {
-    id: 1,
-    name: "Ahmed",
-    active: true,
-  },
-  {
-    id: 2,
-    name: "Amna",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Mohammed",
-    active: false,
-  },
-];
-
 export const MealPlans = [
   {
     id: "#1",

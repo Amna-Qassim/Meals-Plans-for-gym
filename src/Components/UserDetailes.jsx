@@ -5,31 +5,25 @@ export const UserDetailes = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  const { userId, systemName, userName, id } = data;
+  const { userId, systemName, userName } = data;
 
   const [course, setCourse] = useState(undefined);
   const [courses, setCourses] = useState([]);
-
   const [selectedDay, setSelectedDay] = useState("ALL");
 
   useEffect(() => {
-    console.log("data", data);
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
-    console.log("m", MealPlans);
     setCourses(MealPlans);
+
     if (MealPlans) {
       const course = MealPlans.find((user) => {
         return user.userId === parseInt(userId);
       });
-
-      console.log("course1", course);
       setCourse(course);
     }
   }, []);
 
   const saveChanges = () => {
-    console.log("courses", courses);
-    console.log("course before save", course);
     const newcourses = courses.map((obj) => {
       if (obj.userId === parseInt(userId)) {
         obj = course;
@@ -38,30 +32,18 @@ export const UserDetailes = () => {
         return obj;
       }
     });
-    // console.log(newcourses);
     setCourses(newcourses);
     window.localStorage.setItem("mealPlans", JSON.stringify(newcourses));
     navigate("/");
-    console.log("save courses", newcourses);
-    console.log("save course", course);
   };
 
-  const updateSystem = (id, data, course) => {
-    console.log("update system course", id, course.id);
-
-    // if (course.id === id) {
+  const updateSystem = (data, course) => {
     const newSystem = { ...course, systemName: data };
-    console.log("newSystem", newSystem);
     setCourse(newSystem);
     return newSystem;
-    // }
-    // console.log("update system course", course);
-    // return course;
   };
 
   const updateMeal = (dayId, mealId, type, data, course) => {
-    console.log("update meal data", data);
-
     const newCourses = course.days.map((day) => {
       // if the meal not the required to update meal
       if (day.id !== dayId) {
@@ -73,9 +55,11 @@ export const UserDetailes = () => {
           return meal;
         }
 
+        // update the time
         if (type === "time") {
           return { ...meal, time: data };
         }
+
         // update the meal
         if (type === "meal") {
           return { ...meal, meal: data };
@@ -84,12 +68,10 @@ export const UserDetailes = () => {
         }
       });
 
-      console.log({ newMeals });
-
       return { ...day, meals: newMeals };
     });
+
     const newCourse = { ...course, days: newCourses };
-    console.log("newCourses", newCourse);
     setCourse(newCourse);
   };
 
@@ -142,7 +124,7 @@ export const UserDetailes = () => {
             defaultValue={systemName}
             placeholder={"System Name"}
             onChange={(e) => {
-              updateSystem(id, e.target.value, course);
+              updateSystem(e.target.value, course);
             }}
             className="mb-2"
             style={{ width: "220px" }}
