@@ -13,12 +13,13 @@ export const UserDetailes = () => {
   const [selectedDay, setSelectedDay] = useState("ALL");
 
   useEffect(() => {
+    console.log("data", data);
     const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
-    // console.log("m", MealPlans);
+    console.log("m", MealPlans);
     setCourses(MealPlans);
     if (MealPlans) {
       const course = MealPlans.find((user) => {
-        return user.userId === userId;
+        return user.userId === parseInt(userId);
       });
 
       console.log("course1", course);
@@ -30,7 +31,7 @@ export const UserDetailes = () => {
     console.log("courses", courses);
     console.log("course before save", course);
     const newcourses = courses.map((obj) => {
-      if (obj.userId === userId) {
+      if (obj.userId === parseInt(userId)) {
         obj = course;
         return obj;
       } else {
@@ -40,21 +41,22 @@ export const UserDetailes = () => {
     // console.log(newcourses);
     setCourses(newcourses);
     window.localStorage.setItem("mealPlans", JSON.stringify(newcourses));
+    navigate("/");
     console.log("save courses", newcourses);
     console.log("save course", course);
   };
 
-  const updateSystem = (systemId, data, course) => {
-    console.log("update system course", data);
+  const updateSystem = (id, data, course) => {
+    console.log("update system course", id, course.id);
 
-    if (course.id === systemId) {
-      const newSystem = { ...course, systemName: data };
-      console.log("newSystem", newSystem);
-      return newSystem;
-    }
+    // if (course.id === id) {
+    const newSystem = { ...course, systemName: data };
+    console.log("newSystem", newSystem);
+    setCourse(newSystem);
+    return newSystem;
+    // }
     // console.log("update system course", course);
-    setCourse(course);
-    return course;
+    // return course;
   };
 
   const updateMeal = (dayId, mealId, type, data, course) => {
@@ -95,9 +97,15 @@ export const UserDetailes = () => {
     <>
       <div className="mt-3 mb-5 mx-3 d-flex justify-content-between align-items-center">
         <h2 style={{ color: "#636363" }}>
-          The course of <span style={{ color: "#009688" }}>{systemName}</span>{" "}
+          The course of{" "}
+          <span style={{ color: "#009688" }}>
+            {course ? course.systemName : systemName}
+          </span>{" "}
           for <br />
-          <span style={{ color: "#009688" }}>{userName}</span> for this month:
+          <span style={{ color: "#009688" }}>
+            {course ? course.userName : userName}
+          </span>{" "}
+          for this month:
         </h2>
         <select
           onChange={(e) => {
@@ -126,17 +134,20 @@ export const UserDetailes = () => {
           Go back
         </button>
       </div>
-      <div>
-        <h4>System Name:</h4>
-        <input
-          // value={course.systemName}
-          defaultValue={systemName}
-          placeholder={"System Name"}
-          onChange={(e) => {
-            updateSystem(id, e.target.value, course);
-          }}
-          className="mb-2"
-        />
+      <div className=" my-5  mx-5 d-flex justify-content-start">
+        <div>
+          <h4>System Name:</h4>
+          <input
+            value={course ? course.systemName : systemName}
+            defaultValue={systemName}
+            placeholder={"System Name"}
+            onChange={(e) => {
+              updateSystem(id, e.target.value, course);
+            }}
+            className="mb-2"
+            style={{ width: "220px" }}
+          />
+        </div>
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">

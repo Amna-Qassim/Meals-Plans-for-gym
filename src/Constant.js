@@ -469,7 +469,7 @@ export const MealPlans = [
   },
   {
     id: "#3",
-    systemName: "hi",
+    systemName: "",
     userId: 3,
     userName: "Mohammed",
     days: [

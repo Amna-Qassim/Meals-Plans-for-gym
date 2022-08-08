@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react";
-import { MealPlans } from "../Constant";
 import { useNavigate, Link } from "react-router-dom";
+import { MealPlans } from "../Constant";
 import { Select, Table } from "antd";
 
 const Home = () => {
-  const [mealPlans, setMealPlans] = useState(MealPlans);
+  const [mealPlans, setMealPlans] = useState([]);
   const page_size = 5;
   const navigate = useNavigate();
   const { Option } = Select;
 
   useEffect(() => {
-    const MealPlans = JSON.parse(localStorage.getItem("mealPlans"));
-    if (!MealPlans) {
-      localStorage.setItem("mealPlans", JSON.stringify(mealPlans));
+    const mealPlans = JSON.parse(localStorage.getItem("mealPlans"));
+
+    if (!mealPlans) {
+      localStorage.setItem("mealPlans", JSON.stringify(MealPlans));
     } else {
-      setMealPlans(MealPlans);
+      setMealPlans(mealPlans);
     }
   }, []);
 
   const filterUsers = () => {
-    const users = MealPlans.filter((obj) => {
-      return obj.systemName !== "";
+    const users = mealPlans.filter((obj) => {
+      return obj.systemName === ""
+        ? (obj.systemName = "Doesn't have a Course")
+        : obj.systemName;
     });
     return users;
   };
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
-    if (value === "3") {
-      navigate("/addNewCourse", { state: { userId: value } });
-    } else {
-      navigate("/userDetails", { state: { userId: value } });
-    }
+    navigate("/userDetails", { state: { userId: value } });
   };
 
   const columns = [

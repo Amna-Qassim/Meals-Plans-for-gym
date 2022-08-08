@@ -18,7 +18,7 @@ export const AddNewCourse = () => {
     setCourses(MealPlans);
     if (MealPlans) {
       const course = MealPlans.find((user) => {
-        return user.userId === userId;
+        return user.userId === parseInt(userId);
       });
 
       console.log("course1", course);
@@ -30,7 +30,7 @@ export const AddNewCourse = () => {
     console.log("courses", courses);
     console.log("course before save", course);
     const newcourses = courses.map((obj) => {
-      if (obj.userId === userId) {
+      if (obj.userId === parseInt(userId)) {
         obj = course;
         return obj;
       } else {
