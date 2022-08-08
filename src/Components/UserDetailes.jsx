@@ -21,7 +21,7 @@ export const UserDetailes = () => {
       });
       setCourse(course);
     }
-  }, []);
+  }, [userId]);
 
   const saveChanges = () => {
     const newcourses = courses.map((obj) => {
