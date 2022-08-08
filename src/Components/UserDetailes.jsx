@@ -5,7 +5,7 @@ export const UserDetailes = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state;
-  const { userId, userName, systemName } = data;
+  const { userId, systemName, userName, id } = data;
 
   const [course, setCourse] = useState(undefined);
   const [courses, setCourses] = useState([]);
@@ -44,8 +44,21 @@ export const UserDetailes = () => {
     console.log("save course", course);
   };
 
+  const updateSystem = (systemId, data, course) => {
+    console.log("update system course", data);
+
+    if (course.id === systemId) {
+      const newSystem = { ...course, systemName: data };
+      console.log("newSystem", newSystem);
+      return newSystem;
+    }
+    // console.log("update system course", course);
+    setCourse(course);
+    return course;
+  };
+
   const updateMeal = (dayId, mealId, type, data, course) => {
-    console.log("update course", course);
+    console.log("update meal data", data);
 
     const newCourses = course.days.map((day) => {
       // if the meal not the required to update meal
@@ -112,6 +125,18 @@ export const UserDetailes = () => {
         >
           Go back
         </button>
+      </div>
+      <div>
+        <h4>System Name:</h4>
+        <input
+          // value={course.systemName}
+          defaultValue={systemName}
+          placeholder={"System Name"}
+          onChange={(e) => {
+            updateSystem(id, e.target.value, course);
+          }}
+          className="mb-2"
+        />
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">

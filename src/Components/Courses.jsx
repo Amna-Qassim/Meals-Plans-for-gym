@@ -27,7 +27,11 @@ const Home = () => {
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
-    navigate("/addNewCourse", { state: { userId: value } });
+    if (value === "3") {
+      navigate("/addNewCourse", { state: { userId: value } });
+    } else {
+      navigate("/userDetails", { state: { userId: value } });
+    }
   };
 
   const columns = [
