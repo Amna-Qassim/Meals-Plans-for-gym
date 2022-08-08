@@ -133,7 +133,6 @@ export const UserDetailes = () => {
       </div>
 
       <div className="mx-3 my-2 d-flex justify-content-around flex-wrap">
-        {console.log("jsx course", course)}
         {course &&
           course.days.map((day) => {
             if (day.day === selectedDay || selectedDay === "ALL") {
