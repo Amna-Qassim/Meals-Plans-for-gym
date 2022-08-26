@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { MealPlans } from "../Constant";
 import { Select, Table } from "antd";
 
@@ -7,7 +7,6 @@ export const Courses = () => {
   const [mealPlans, setMealPlans] = useState([]);
   const [specificUser, setSpecificUser] = useState([]);
   const page_size = 5;
-  const navigate = useNavigate();
   const { Option } = Select;
 
   useEffect(() => {
@@ -19,17 +18,7 @@ export const Courses = () => {
     }
   }, []);
 
-  // const filterUsers = () => {
-  //   const users = mealPlans.filter((obj) => {
-  //     return obj.systemName === ""
-  //       ? (obj.systemName = "Doesn't have a Course")
-  //       : obj.systemName;
-  //   });
-  //   return users;
-  // };
-
   const handleChange = (value) => {
-    // navigate("/userDetails", { state: { userId: value } });
     const users = mealPlans.filter((obj) => {
       return obj.userId === parseInt(value);
     });
