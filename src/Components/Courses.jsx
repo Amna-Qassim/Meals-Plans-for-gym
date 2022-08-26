@@ -5,7 +5,7 @@ import { Select, Table } from "antd";
 
 export const Courses = () => {
   const [mealPlans, setMealPlans] = useState([]);
-  const [specificUser, setSpecificUser] = useState([]);
+  const [specificUser, setSpecificUser] = useState();
   const page_size = 5;
   const { Option } = Select;
 
@@ -95,7 +95,7 @@ export const Courses = () => {
         <Table
           className="my-5 fw-bold"
           columns={columns}
-          dataSource={specificUser}
+          dataSource={specificUser ? specificUser : mealPlans}
           pagination={{
             pageSize: page_size,
             position: ["bottomCenter"],
