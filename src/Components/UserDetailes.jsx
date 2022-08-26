@@ -78,17 +78,22 @@ export const UserDetailes = () => {
   return (
     <>
       <div className="mt-3 mb-5 mx-3 d-flex justify-content-between align-items-center">
-        <h2 style={{ color: "#636363" }}>
-          The course of{" "}
-          <span style={{ color: "#009688" }}>
-            {course ? course.systemName : systemName}
-          </span>{" "}
-          for <br />
-          <span style={{ color: "#009688" }}>
-            {course ? course.userName : userName}
-          </span>{" "}
-          for this month:
-        </h2>
+        <div>
+          <h2 style={{ color: "#636363" }}>
+            The course of{" "}
+            <span style={{ color: "#009688" }}>
+              {course ? course.systemName : systemName}
+            </span>{" "}
+            for <br />
+            <span style={{ color: "#009688" }}>
+              {course ? course.userName : userName}
+            </span>{" "}
+            for this month:
+          </h2>
+          <h6 style={{ color: "red", fontSize: "14px" }}>
+            *You can edit on the course below
+          </h6>
+        </div>
         <select
           onChange={(e) => {
             setSelectedDay(e.target.value);
@@ -100,7 +105,7 @@ export const UserDetailes = () => {
             fontWeight: "bold",
           }}
         >
-          <option value={"ALL"}>ALL</option>
+          <option value={"ALL Days"}>ALL Days</option>
           <option value={"SUNDAY"}>SUNDAY</option>
           <option value={"MONDAY"}>MONDAY</option>
           <option value={"TUESDAY"}>TUESDAY</option>

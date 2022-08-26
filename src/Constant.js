@@ -451,7 +451,7 @@ export const MealPlans = [
   },
   {
     id: "#3",
-    systemName: "",
+    systemName: "Doesn't have a Course",
     userId: 3,
     userName: "Mohammed",
     days: [

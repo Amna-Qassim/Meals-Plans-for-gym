@@ -5,6 +5,7 @@ import { Select, Table } from "antd";
 
 export const Courses = () => {
   const [mealPlans, setMealPlans] = useState([]);
+  const [specificUser, setSpecificUser] = useState([]);
   const page_size = 5;
   const navigate = useNavigate();
   const { Option } = Select;
@@ -18,34 +19,40 @@ export const Courses = () => {
     }
   }, []);
 
-  const filterUsers = () => {
+  // const filterUsers = () => {
+  //   const users = mealPlans.filter((obj) => {
+  //     return obj.systemName === ""
+  //       ? (obj.systemName = "Doesn't have a Course")
+  //       : obj.systemName;
+  //   });
+  //   return users;
+  // };
+
+  const handleChange = (value) => {
+    // navigate("/userDetails", { state: { userId: value } });
     const users = mealPlans.filter((obj) => {
-      return obj.systemName === ""
-        ? (obj.systemName = "Doesn't have a Course")
-        : obj.systemName;
+      return obj.userId === parseInt(value);
     });
+    setSpecificUser(users);
     return users;
   };
 
-  const handleChange = (value) => {
-    navigate("/userDetails", { state: { userId: value } });
-  };
-
   const columns = [
-    {
-      title: "SystemName",
-      dataIndex: "systemName",
-      key: "systemName",
-    },
     {
       title: "UserName",
       dataIndex: "userName",
       key: "userName",
     },
     {
+      title: "SystemName",
+      dataIndex: "systemName",
+      key: "systemName",
+    },
+    {
       title: "Detailes",
       key: "detail",
       render: (_, record) => {
+        console.log("record", record);
         if (record.id) {
           return (
             <Link
@@ -57,7 +64,9 @@ export const Courses = () => {
               state={record}
             >
               <button type="button" className="btn btn-dark">
-                Details
+                {record.systemName === "Doesn't have a Course"
+                  ? "Add A Course"
+                  : "Course Detailes"}
               </button>
             </Link>
           );
@@ -97,7 +106,7 @@ export const Courses = () => {
         <Table
           className="my-5 fw-bold"
           columns={columns}
-          dataSource={filterUsers()}
+          dataSource={specificUser}
           pagination={{
             pageSize: page_size,
             position: ["bottomCenter"],
